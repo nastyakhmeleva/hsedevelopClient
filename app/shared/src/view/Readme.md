@@ -1,0 +1,1 @@
+# hsedevelopApp shared/app
