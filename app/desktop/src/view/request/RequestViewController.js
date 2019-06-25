@@ -12,16 +12,6 @@ Ext.define('hsedevelopApp.view.request.RequestViewController', {
         }
     },
 
-    onAddClick: function(){
-        Ext.create('Ext.window.Window',{
-            title: 'Добавление заявки',
-            height:200,
-            width:400,
-            layout:'fit',
-
-        })
-    },
-
     init:function(){
         this.control({
 
