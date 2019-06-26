@@ -2,7 +2,8 @@ var itemsPerPage=2;
 
 Ext.define('hsedevelopApp.view.request.RequestViewStore', {
     extend: 'Ext.data.Store',
-    autoLoad:false,
+    storeId:'requestStore',
+    autoLoad:true,
     pageSize:2,
     alias: 'store.requestviewstore',
     fields: [

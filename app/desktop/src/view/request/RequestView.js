@@ -1,6 +1,13 @@
 Ext.define('hsedevelopApp.view.request.RequestView',{
     extend:'Ext.grid.Grid',
     xtype: 'requestview',
+    id:'requestgrid',
+    selType:'cellmodel',
+    plugins:[
+        Ext.create('Ext.grid.plugin.CellEditing',{
+            clicksToEdit:1
+        })
+    ],
     cls: 'requestview',
     requires: [],
     controller: {type: 'requestviewcontroller'},
@@ -10,27 +17,32 @@ Ext.define('hsedevelopApp.view.request.RequestView',{
         {
             text: 'Название',
             dataIndex: 'name',
-            width: 200
+            width: 200,
+            editor:'textfield'
         },
         {
             text: 'Дата открытия',
             dataIndex: 'dateOn',
-            width: 150
+            width: 150,
+            editor:'datefield'
         },
         {
             text: 'Дата закрытия',
             dataIndex: 'dateOff',
             width: 150,
+            editor:'datefield'
         },
         {
             text: 'Дата обновления',
             dataIndex: 'upgradeDate',
             width: 150,
+            editor:'datefield'
         },
         {
             text: 'Сумма',
             dataIndex: 'sum',
             width: 150,
+            editor: 'textfield'
         }
     ],
     items:[
@@ -41,29 +53,29 @@ Ext.define('hsedevelopApp.view.request.RequestView',{
                     xtype:'button',
                     renderTo: Ext.getBody(),
                     text:'Add',
-                    handler: function () {openFormAddRequest.show();}
-                },
+                    handler: function(){openFormAddRequest.show();}
+                    },
                 {
                     xtype: 'button',
-                    text: 'Delete'
+                    text: 'Delete',
+                    handler: 'onDeleteClick'
                 }
             ]}
-    ],
-    listeners: {
-        select: 'onItemSelected'
-    }
+    ]
 });
 
 var openFormAddRequest=Ext.create('Ext.Window',{
     title: 'Добавление заявки',
     bodyPadding: 5,
     width:500,
+    closeAction: 'hide',
+    closable:true,
     layout:{
         type:'vbox',
         align:'stretch'
     },
-    items:[{
-        xtype:'textfield',
+        items:[{
+            xtype:'textfield',
         label: 'Название',
         name: 'name',
         allowBlank: true
@@ -71,7 +83,7 @@ var openFormAddRequest=Ext.create('Ext.Window',{
         {
             xtype:'datefield',
             label: 'Дата открытия',
-            name:'dateOn'
+            name:'dateOn',
         },
         {
             xtype:'datefield',
@@ -89,8 +101,20 @@ var openFormAddRequest=Ext.create('Ext.Window',{
             name:'sum'
         }],
     bbar:[{
-        text: 'Close',
-        handler: function(){openFormAddRequest.close();}
+            xtype:'toolbar',
+            items:[
+                {
+                    xtype: 'button',
+                    text: 'Save',
+                },
+                {
+                    handler:function () {
+                        editForm().submit({
+                            url:'requestStore'
+                        })
+
+                    }
+                }]
     }],
     autoLoad: true
 });
