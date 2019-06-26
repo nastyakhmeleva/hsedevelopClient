@@ -1,7 +1,6 @@
 Ext.define('hsedevelopApp.view.request.RequestView',{
     extend:'Ext.grid.Grid',
     xtype: 'requestview',
-    id:'requestgrid',
     selType:'cellmodel',
     plugins:[
         Ext.create('Ext.grid.plugin.CellEditing',{
@@ -52,9 +51,15 @@ Ext.define('hsedevelopApp.view.request.RequestView',{
                 {
                     xtype:'button',
                     renderTo: Ext.getBody(),
-                    text:'Add',
+                    text:'Open Form Add',
                     handler: function(){openFormAddRequest.show();}
                     },
+                {
+                    xtype:'button',
+                    renderTo: Ext.getBody(),
+                    text:'Add String',
+                    handler: 'onAddClick'
+                },
                 {
                     xtype: 'button',
                     text: 'Delete',

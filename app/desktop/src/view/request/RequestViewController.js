@@ -12,24 +12,14 @@ Ext.define('hsedevelopApp.view.request.RequestViewController', {
         grid.view.focusNode(recs);
         grid.editingPlugin.startEdit(recs,0)
     },
-    onSubmit: function(){
-      var form=this.getView();
-
-      form.submit({
-          url: 'url/to/submit/to',
-          success:function () {
-              Ext.Msg.alert('Form submitted successfully!');
-          }
-      })
-    },
 
 
     onDeleteClick: function(){
-        var grid=Ext.getCmp('requestgrid');
-        var selection=grid.getView().getSelectionModel().getSelection()[0];
-        if (selection){
-            store.remove(selection);
-        }
+        var requestgrid=this.getView();
+        var requeststore=requestgrid.getStore();
+        var selectedRows=requestgrid.getSelectionModel().getSelection();
+
+        requeststore.remove(selectedRows);
     },
 
     init:function(){
